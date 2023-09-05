@@ -1,8 +1,7 @@
-
 /** @type {import('jest').Config} */
 module.exports = {
   // A list of paths to directories that Jest should use to search for files in
-  roots: ['<rootDir>/src'],
+  roots: ["<rootDir>/test"],
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
@@ -11,19 +10,27 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: 'coverage',
+  coverageDirectory: "coverage",
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: 'v8',
+  coverageProvider: "v8",
 
   // The test environment that will be used for testing
-  testEnvironment: 'node',
+  testEnvironment: "node",
 
   // A map from regular expressions to paths to transformers
-  transform: { '.+\\.ts$': 'ts-jest' }
+  transform: {
+    "^.+\\.tsx?$": "ts-jest",
+  },
+
+  // The regexp pattern or array of patterns that Jest uses to detect test files
+  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+
+  // An array of file extensions your modules use
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
 
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -79,18 +86,6 @@ module.exports = {
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [
   //   "node_modules"
-  // ],
-
-  // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //   "js",
-  //   "mjs",
-  //   "cjs",
-  //   "jsx",
-  //   "ts",
-  //   "tsx",
-  //   "json",
-  //   "node"
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
@@ -161,9 +156,6 @@ module.exports = {
   //   "/node_modules/"
   // ],
 
-  // The regexp pattern or array of patterns that Jest uses to detect test files
-  // testRegex: [],
-
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
 
@@ -187,4 +179,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-}
+};
