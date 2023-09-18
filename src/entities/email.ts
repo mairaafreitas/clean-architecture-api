@@ -1,5 +1,22 @@
+import { left, right } from './../shared/either'
+import { type Either } from '../shared/either'
+import { InvalidEmailError } from './errors/invalid-email-error'
+
 export class Email {
-  validate (email: string): boolean {
+  private readonly email: string
+
+  constructor (email: string) {
+    this.email = email
+  }
+
+  static create (email: string): Either<InvalidEmailError, Email> {
+    if (Email.validate(email)) {
+      return right(new Email(email))
+    }
+    return left(new InvalidEmailError())
+  }
+
+  static validate (email: string): boolean {
     if (email === '') {
       return false
     }
@@ -27,7 +44,7 @@ export class Email {
     const domainParts = domain.split('.')
     if (
       domainParts.some(function (part) {
-        return parent.length > 63
+        return part.length > 63
       })
     ) {
       return false
