@@ -1,7 +1,7 @@
 /** @type {import('jest').Config} */
 module.exports = {
   // A list of paths to directories that Jest should use to search for files in
-  roots: ["<rootDir>/test"],
+  roots: ['<rootDir>/test'],
 
   // Automatically clear mock calls, instances, contexts and results before every test
   clearMocks: true,
@@ -10,27 +10,31 @@ module.exports = {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.ts',
+    '!**/test/**',
+    '!**/config/**'
+  ],
 
   // The directory where Jest should output its coverage files
-  coverageDirectory: "coverage",
+  coverageDirectory: 'coverage',
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  coverageProvider: 'v8',
 
   // The test environment that will be used for testing
-  testEnvironment: "node",
+  testEnvironment: 'node',
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
+    '^.+\\.tsx?$': 'ts-jest'
   },
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
 
   // An array of file extensions your modules use
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json']
 
   // All imported modules in your tests should be mocked automatically
   // automock: false,
@@ -179,4 +183,4 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}
