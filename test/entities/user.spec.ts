@@ -1,4 +1,4 @@
-import { User } from '../../src/entities/user'
+import { User } from '../../src/entities'
 
 describe('User domain entity', () => {
   test('should not create user with invalid email address', () => {
@@ -20,5 +20,13 @@ describe('User domain entity', () => {
     const error = User.create({ name: invalidName, email: 'any@email.com' }).value as Error
     expect(error.name).toEqual('InvalidNameError')
     expect(error.message).toEqual(`Invalid name: ${invalidName}.`)
+  })
+
+  test('should create user with valid data', () => {
+    const validName = 'any_name'
+    const validEmail = 'any@email.com'
+    const user = User.create({ name: validName, email: validEmail }).value
+    expect(user.name).toEqual(validName)
+    // expect(user.email).toEqual(validEmail)
   })
 })
