@@ -1,6 +1,6 @@
-import { type Either, left, right } from '../shared'
-import { type UserData, Email, Name } from './'
-import { type InvalidEmailError, type InvalidNameError } from './errors'
+import { type Either, left, right } from '@/shared'
+import { type UserData, Email, Name } from '@/entities'
+import { type InvalidEmailError, type InvalidNameError } from '@/entities/errors'
 
 export class User {
   public readonly name: Name
