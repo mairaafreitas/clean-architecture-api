@@ -6,14 +6,13 @@ import { InMemoryUserRepository } from '@test/usecases/register-user-on-mailing-
 describe('Register user on mailing list user case', () => {
   test('should add user with complete data to mailing list', async () => {
     const users: UserData[] = []
-    console.log(users)
     const repo: UserRepository = new InMemoryUserRepository(users)
     const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(
       repo
     )
     const name = 'name'
     const email = 'email@email.com'
-    const response = await useCase.registerUserOnMailingList({ name, email })
+    const response = await useCase.perform({ name, email })
     const user = await repo.findUserByEmail('email@email.com')
     expect(user.name).toBe('name')
     expect(response.value.name).toBe('name')
@@ -28,7 +27,7 @@ describe('Register user on mailing list user case', () => {
     )
     const name = 'name'
     const invalidEmail = 'invalid_email'
-    const response = (await useCase.registerUserOnMailingList({ name, email: invalidEmail })).value as Error
+    const response = (await useCase.perform({ name, email: invalidEmail })).value as Error
     const user = await repo.findUserByEmail(invalidEmail)
     expect(user).toBeNull()
     expect(response.name).toEqual('InvalidEmailError')
@@ -43,7 +42,7 @@ describe('Register user on mailing list user case', () => {
     )
     const invalidName = ''
     const email = 'email@email.com'
-    const response = (await useCase.registerUserOnMailingList({ name: invalidName, email })).value as Error
+    const response = (await useCase.perform({ name: invalidName, email })).value as Error
     const user = await repo.findUserByEmail(email)
     expect(user).toBeNull()
     expect(response.name).toEqual('InvalidNameError')
