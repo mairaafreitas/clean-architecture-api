@@ -31,5 +31,9 @@
   },
   "directories": {
     "test": "test"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.11",
+    "express": "^4.17.1"
   }
 }
