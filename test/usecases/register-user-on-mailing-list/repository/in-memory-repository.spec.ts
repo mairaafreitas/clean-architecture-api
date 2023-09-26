@@ -1,4 +1,4 @@
-import { InMemoryUserRepository } from '@test/usecases/register-user-on-mailing-list/repository'
+import { InMemoryUserRepository } from '@/usecases/register-user-on-mailing-list/repository'
 import type { UserData } from '@/entities'
 
 describe('In memory User Repository', () => {
