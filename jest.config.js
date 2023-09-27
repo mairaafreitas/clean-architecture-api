@@ -1,5 +1,8 @@
 /** @type {import('jest').Config} */
 module.exports = {
+  // A preset that is used as a base for Jest's configuration
+  preset: '@shelf/jest-mongodb',
+
   // A list of paths to directories that Jest should use to search for files in
   roots: ['<rootDir>/test'],
 
@@ -106,9 +109,6 @@ module.exports = {
 
   // An enum that specifies notification mode. Requires { notify: true }
   // notifyMode: "failure-change",
-
-  // A preset that is used as a base for Jest's configuration
-  // preset: undefined,
 
   // Run tests from one or more projects
   // projects: undefined,

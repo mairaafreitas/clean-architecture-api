@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/main/server.js",
     "build": "rimraf dist && bash -c tsc -p tsconfig-build.json dist",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test-verbose": "jest --passWithNoTests --runInBand",
@@ -15,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.2.3",
     "@types/express": "^4.17.11",
     "@types/jest": "^29.5.4",
     "@types/node": "^14.17.27",
@@ -41,7 +43,7 @@
     "express": "^4.17.1",
     "module-alias": "^2.2.2"
   },
-  "_moduleAliases":{
+  "_moduleAliases": {
     "@": "dist"
   }
 }
