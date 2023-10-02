@@ -26,7 +26,7 @@ module.exports = {
   coverageProvider: 'v8',
 
   // The test environment that will be used for testing
-  testEnvironment: 'node',
+  // testEnvironment: 'node',
 
   // A map from regular expressions to paths to transformers
   transform: {
