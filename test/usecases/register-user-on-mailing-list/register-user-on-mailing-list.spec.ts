@@ -1,4 +1,4 @@
-import type { UserData } from '@/entities'
+import { User, type UserData } from '@/entities'
 import { type UserRepository } from '@/usecases/register-user-on-mailing-list/ports'
 import { RegisterUserOnMailingList } from '@/usecases/register-user-on-mailing-list'
 import { InMemoryUserRepository } from '@/usecases/register-user-on-mailing-list/repository'
@@ -10,41 +10,10 @@ describe('Register user on mailing list user case', () => {
     const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(
       repo
     )
-    const name = 'name'
-    const email = 'email@email.com'
-    const response = await useCase.perform({ name, email })
-    const user = await repo.findUserByEmail('email@email.com')
-    expect(user.name).toBe('name')
-    expect(response.value.name).toBe('name')
-  })
-
-  test('should not add user with invalid email to mailing list', async () => {
-    const users: UserData[] = []
-    console.log(users)
-    const repo: UserRepository = new InMemoryUserRepository(users)
-    const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(
-      repo
-    )
-    const name = 'name'
-    const invalidEmail = 'invalid_email'
-    const response = (await useCase.perform({ name, email: invalidEmail })).value as Error
-    const user = await repo.findUserByEmail(invalidEmail)
-    expect(user).toBeNull()
-    expect(response.name).toEqual('InvalidEmailError')
-  })
-
-  test('should not add user with invalid name to mailing list', async () => {
-    const users: UserData[] = []
-    console.log(users)
-    const repo: UserRepository = new InMemoryUserRepository(users)
-    const useCase: RegisterUserOnMailingList = new RegisterUserOnMailingList(
-      repo
-    )
-    const invalidName = ''
-    const email = 'email@email.com'
-    const response = (await useCase.perform({ name: invalidName, email })).value as Error
-    const user = await repo.findUserByEmail(email)
-    expect(user).toBeNull()
-    expect(response.name).toEqual('InvalidNameError')
+    const user = User.create({ name: 'name', email: 'email@email.com' }).value as User
+    const response = await useCase.perform(user)
+    const addedUser = await repo.findUserByEmail('email@email.com')
+    expect(addedUser.name).toBe('name')
+    expect(response.name).toBe('name')
   })
 })
