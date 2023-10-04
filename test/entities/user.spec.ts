@@ -25,8 +25,8 @@ describe('User domain entity', () => {
   test('should create user with valid data', () => {
     const validName = 'any_name'
     const validEmail = 'any@email.com'
-    const user = User.create({ name: validName, email: validEmail }).value
-    expect(user.name).toEqual(validName)
+    const user = User.create({ name: validName, email: validEmail }).value as User
+    expect(user.name.value).toEqual(validName)
     // expect(user.email).toEqual(validEmail)
   })
 })
