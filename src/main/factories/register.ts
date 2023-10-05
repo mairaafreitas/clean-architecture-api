@@ -1,9 +1,9 @@
 import { RegisterUserOnMailingList } from '@/usecases/register-user-on-mailing-list'
-import { RegisterUserController } from '@/web-controllers'
+import { RegisterAndSendEmailController } from '@/web-controllers'
 import { MongodbUserRepository } from '@/infra/repositories/mongodb'
 
-export const makeRegisterUserController = (): RegisterUserController => {
+export const makeRegisterAndSendEmailController = (): RegisterAndSendEmailController => {
   const mongoDbUserRepository = new MongodbUserRepository()
   const registerUserOnMailingListUseCase = new RegisterUserOnMailingList(mongoDbUserRepository)
-  return new RegisterUserController(registerUserOnMailingListUseCase)
+  return new RegisterAndSendEmailController(registerUserOnMailingListUseCase)
 }
