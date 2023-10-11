@@ -3,7 +3,7 @@ import { type MailServiceError } from '@/usecases/errors'
 
 export interface EmailAttachment {
   filename: string
-  contentType: string
+  path: string
 }
 
 export interface EmailOptions {
