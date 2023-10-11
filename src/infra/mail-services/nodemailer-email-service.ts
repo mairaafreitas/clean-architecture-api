@@ -23,7 +23,7 @@ export class NodemailerEmailService implements EmailService {
         attachments: options.attachments
       })
     } catch (error) {
-      left(new MailServiceError())
+      return left(new MailServiceError())
     }
     return right(options)
   }
