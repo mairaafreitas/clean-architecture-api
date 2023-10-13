@@ -15,7 +15,7 @@ describe('In memory User Repository', () => {
     const email = 'email@email.com'
     const userRepo = new InMemoryUserRepository(users)
     await userRepo.add({ name, email })
-    const user = await userRepo.findUserByEmail('email@email.com')
+    const user = await userRepo.findUserByEmail('email@email.com') as UserData
     expect(user.name).toBe('name')
   })
 
