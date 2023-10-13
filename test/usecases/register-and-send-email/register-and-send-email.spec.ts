@@ -19,7 +19,7 @@ describe('Register and send email to user', () => {
   const emailBodyHtml = '<b>Hello World attachment test</b>'
   const attachment = [{
     filename: attachmentFilePath,
-    contentType: 'text/plain'
+    path: '../../resources/text.txt'
   }]
 
   const mailOptions: EmailOptions = {
