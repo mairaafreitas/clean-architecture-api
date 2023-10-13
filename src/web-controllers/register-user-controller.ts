@@ -12,16 +12,16 @@ export class RegisterAndSendEmailController {
 
   public async handle (request: HttpRequest): Promise<HttpResponse> {
     try {
-      if (!(request.body.name) || !(request.body.email)) {
-        let missingParam = request.body.name ? '' : 'name '
-        missingParam += request.body.email ? '' : 'email'
+      if (!('name' in request.body) || !('email' in request.body)) {
+        let missingParam = 'name' in request.body ? '' : 'name '
+        missingParam += 'email' in request.body ? '' : 'email'
         return badRequest(new MissingParamError(missingParam.trim()))
       }
 
       const userData: UserData = request.body
       const response = await this.usecase.perform(userData)
 
-      if (response.isLeft()) {
+      if (response.isLeft() as boolean) {
         return badRequest(response.value)
       }
 
