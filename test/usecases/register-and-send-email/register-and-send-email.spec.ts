@@ -1,12 +1,11 @@
 import { type UserData } from '@/entities'
-import { type Either, right } from '@/shared'
-import { type MailServiceError } from '@/usecases/errors'
 import { RegisterAndSendEmail } from '@/usecases/register-and-send-email'
 import { RegisterUserOnMailingList } from '@/usecases/register-user-on-mailing-list'
 import { type UserRepository } from '@/usecases/register-user-on-mailing-list/ports'
 import { InMemoryUserRepository } from '@/usecases/register-user-on-mailing-list/repository'
 import { SendEmail } from '@/usecases/send-email'
-import { type EmailOptions, type EmailService } from '@/usecases/send-email/ports'
+import { type EmailOptions } from '@/usecases/send-email/ports'
+import { MailServiceMock } from '@test/infra/mail-services/mock-email-service'
 
 describe('Register and send email to user', () => {
   const attachmentFilePath = '../resources/test.txt'
@@ -34,13 +33,7 @@ describe('Register and send email to user', () => {
     html: emailBodyHtml,
     attachments: attachment
   }
-  class MailServiceMock implements EmailService {
-    public timesSendWasCalled = 0
-    async send (emailOptions: EmailOptions): Promise<Either<MailServiceError, EmailOptions>> {
-      this.timesSendWasCalled++
-      return right(emailOptions)
-    }
-  }
+
   test('should register user and send an email with valid data', async () => {
     const users: UserData[] = []
     const repo: UserRepository = new InMemoryUserRepository(users)
@@ -54,9 +47,9 @@ describe('Register and send email to user', () => {
     const email = 'email@email.com'
     const response: UserData = (await registerAndSendEmailUseCase.perform({ name, email })).value as UserData
     const user = await repo.findUserByEmail('email@email.com')
-    expect(user.name).toBe('name')
+    expect(user?.name).toBe('name')
     expect(response.name).toBe('name')
-    expect(mailServiceMock.timesSendWasCalled).toEqual(1)
+    expect(MailServiceMock.timesSendWasCalled).toEqual(1)
     expect(response.name).toEqual('name')
   })
 

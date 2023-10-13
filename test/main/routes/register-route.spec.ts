@@ -1,6 +1,14 @@
 import request from 'supertest'
 import app from '@/main/config/app'
 import { MongoHelper } from '@/infra/repositories/mongodb/helper'
+import { MailServiceMock } from '@test/infra/mail-services/mock-email-service'
+
+jest.mock('@/infra/mail-services/nodemailer-email-service', () => {
+  return {
+    __esModule: true,
+    NodemailerEmailService: MailServiceMock
+  }
+})
 
 describe('Register route', () => {
   beforeAll(async () => {
@@ -19,7 +27,8 @@ describe('Register route', () => {
       res.send()
     })
     await request(app).post('/api/register')
-      .send({ name: 'Any Name', email: 'any@email.com' })
-      .expect(201)
+      .send({ name: 'Any Name', email: 'maira.oliveirafreitas@gmail.com' })
+      .expect(200)
+    expect(MailServiceMock.timesSendWasCalled).toEqual(1)
   })
 })
